@@ -1,6 +1,7 @@
 package zipkin
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,10 +11,21 @@ import (
 	"testing"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
-	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/openzipkin/zipkin-go/model"
 	"github.com/stretchr/testify/assert"
 )
+
+func newTestClient(t *testing.T, serverURL string, httpClient *http.Client) Client {
+	t.Helper()
+	client, err := NewZipkinClient(context.Background(), &DatasourceInfo{
+		url:        serverURL,
+		httpClient: httpClient,
+	}, backend.Logger)
+	if err != nil {
+		t.Fatalf("failed to create test client: %v", err)
+	}
+	return client
+}
 
 func TestZipkinClient_Services(t *testing.T) {
 	tests := []struct {
@@ -63,7 +75,7 @@ func TestZipkinClient_Services(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, _ := New(server.URL, server.Client(), log.New())
+			client := newTestClient(t, server.URL, server.Client())
 			services, err := client.Services()
 
 			if tt.expectError {
@@ -129,7 +141,7 @@ func TestZipkinClient_Spans(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, _ := New(server.URL, server.Client(), log.New())
+			client := newTestClient(t, server.URL, server.Client())
 			spans, err := client.Spans(tt.serviceName)
 
 			if tt.expectError {
@@ -222,7 +234,7 @@ func TestZipkinClient_Traces(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, _ := New(server.URL, server.Client(), log.New())
+			client := newTestClient(t, server.URL, server.Client())
 			traces, err := client.Traces(tt.serviceName, tt.spanName)
 
 			if tt.expectError {
@@ -296,15 +308,14 @@ func TestZipkinClient_Trace(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var client ZipkinClient
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				assert.Contains(t, r.URL.String(), "/api/v2/trace/"+url.QueryEscape(tt.traceID))
 				w.WriteHeader(tt.mockStatusCode)
 				_, _ = w.Write([]byte(tt.mockResponse))
 			}))
 			defer server.Close()
-			client, _ = New(server.URL, server.Client(), log.New())
 
+			client := newTestClient(t, server.URL, server.Client())
 			trace, err := client.Trace(tt.traceID)
 
 			if tt.expectError {

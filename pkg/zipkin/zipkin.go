@@ -6,71 +6,53 @@ import (
 	"fmt"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
-	"github.com/grafana/grafana-plugin-sdk-go/backend/datasource"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/httpclient"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
+	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/resource/httpadapter"
 )
 
-var logger = backend.NewLoggerWith("logger", "tsdb.zipkin")
+// var logger = backend.NewLoggerWith("logger", "tsdb.zipkin")
 
-type Service struct {
-	im instancemgmt.InstanceManager
+type Datasource struct {
+	info   *DatasourceInfo
+	logger log.Logger
 }
 
-func ProvideService(httpClientProvider *httpclient.Provider) *Service {
-	return &Service{
-		im: datasource.NewInstanceManager(newInstanceSettings(httpClientProvider)),
-	}
-}
-
-type datasourceInfo struct {
-	ZipkinClient ZipkinClient
-}
-
-func newInstanceSettings(httpClientProvider *httpclient.Provider) datasource.InstanceFactoryFunc {
-	return func(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
-		httpClientOptions, err := settings.HTTPClientOptions(ctx)
-		if err != nil {
-			return nil, backend.DownstreamError(fmt.Errorf("error reading settings: %w", err))
-		}
-
-		httpClient, err := httpClientProvider.New(httpClientOptions)
-		if err != nil {
-			return nil, fmt.Errorf("error creating http client: %w", err)
-		}
-
-		if settings.URL == "" {
-			return nil, backend.DownstreamError(errors.New("error reading settings: url is empty"))
-		}
-
-		logger := logger.FromContext(ctx)
-		zipkinClient, err := New(settings.URL, httpClient, logger)
-		return &datasourceInfo{ZipkinClient: zipkinClient}, err
-	}
-}
-
-func (s *Service) getDSInfo(ctx context.Context, pluginCtx backend.PluginContext) (*datasourceInfo, error) {
-	i, err := s.im.Get(ctx, pluginCtx)
+func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
+	httpClientOptions, err := settings.HTTPClientOptions(ctx)
 	if err != nil {
-		return nil, err
+		return nil, backend.DownstreamError(fmt.Errorf("error reading settings: %w", err))
 	}
-	instance, ok := i.(*datasourceInfo)
-	if !ok {
-		return nil, backend.DownstreamError(errors.New("failed to cast datasource info"))
+
+	httpClient, err := httpclient.NewProvider().New(httpClientOptions)
+	if err != nil {
+		return nil, fmt.Errorf("error creating http client: %w", err)
 	}
-	return instance, nil
+
+	if settings.URL == "" {
+		return nil, backend.DownstreamError(errors.New("error reading settings: url is empty"))
+	}
+
+	logger := log.New().FromContext(ctx)
+	zipkinClient := DatasourceInfo{
+		logger:     logger,
+		url:        settings.URL,
+		httpClient: httpClient,
+	}
+	return &Datasource{info: &zipkinClient, logger: logger}, nil
 }
 
-func (s *Service) CheckHealth(ctx context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
-	client, err := s.getDSInfo(ctx, backend.PluginConfigFromContext(ctx))
+func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
+	logger := ds.logger.FromContext(ctx)
+	client, err := NewZipkinClient(ctx, ds.info, logger)
 	if err != nil {
 		return &backend.CheckHealthResult{
 			Status:  backend.HealthStatusError,
 			Message: err.Error(),
 		}, nil
 	}
-	if _, err = client.ZipkinClient.Services(); err != nil {
+	if _, err := client.Services(); err != nil {
 		return &backend.CheckHealthResult{
 			Status:  backend.HealthStatusError,
 			Message: err.Error(),
@@ -82,15 +64,15 @@ func (s *Service) CheckHealth(ctx context.Context, req *backend.CheckHealthReque
 	}, nil
 }
 
-func (s *Service) CallResource(ctx context.Context, req *backend.CallResourceRequest, sender backend.CallResourceResponseSender) error {
-	handler := httpadapter.New(s.registerResourceRoutes())
+func (ds *Datasource) CallResource(ctx context.Context, req *backend.CallResourceRequest, sender backend.CallResourceResponseSender) error {
+	logger := ds.logger.FromContext(ctx)
+	client, _ := NewZipkinClient(ctx, ds.info, logger)
+	handler := httpadapter.New(ds.registerResourceRoutes(client))
 	return handler.CallResource(ctx, req, sender)
 }
 
-func (s *Service) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
-	dsInfo, err := s.getDSInfo(ctx, req.PluginContext)
-	if err != nil {
-		return nil, err
-	}
-	return queryData(ctx, dsInfo, req)
+func (ds *Datasource) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
+	logger := ds.logger.FromContext(ctx)
+	client, _ := NewZipkinClient(ctx, ds.info, logger)
+	return queryData(ctx, client, logger, req)
 }

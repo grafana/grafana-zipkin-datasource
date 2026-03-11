@@ -6,13 +6,14 @@ import (
 	"fmt"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
+	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/openzipkin/zipkin-go/model"
 )
 
-func queryData(ctx context.Context, dsInfo *datasourceInfo, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
+func queryData(ctx context.Context, zc Client, logger log.Logger, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
 	response := backend.NewQueryDataResponse()
-	logger := dsInfo.ZipkinClient.logger.FromContext(ctx)
+	logger = logger.FromContext(ctx)
 
 	for _, q := range req.Queries {
 		query, err := loadQuery(q)
@@ -36,7 +37,7 @@ func queryData(ctx context.Context, dsInfo *datasourceInfo, req *backend.QueryDa
 				ErrorSource: backend.ErrorSourcePlugin,
 			}
 		default:
-			traces, err := dsInfo.ZipkinClient.Trace(query.Query)
+			traces, err := zc.Trace(query.Query)
 			if err != nil {
 				es := backend.ErrorSourcePlugin
 				if backend.IsDownstreamError(err) {
