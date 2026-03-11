@@ -27,7 +27,7 @@ type Client interface {
 	Trace(traceId string) ([]model.SpanModel, error)
 }
 
-// NewClient creates a new elasticsearch client
+// NewZipkinClient creates a new elasticsearch client
 var NewZipkinClient = func(ctx context.Context, ds *DatasourceInfo, logger log.Logger) (Client, error) {
 	logger.Debug("Creating new client")
 	return &baseClientImpl{
