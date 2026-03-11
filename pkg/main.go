@@ -5,7 +5,7 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend/datasource"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
-	"github.com/grafana/zipkin/pkg/plugin"
+	"github.com/grafana/grafana-zipkin-datasource/pkg/zipkin"
 )
 
 func main() {
