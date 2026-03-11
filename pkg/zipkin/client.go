@@ -1,6 +1,7 @@
 package zipkin
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,37 +13,52 @@ import (
 	"github.com/openzipkin/zipkin-go/model"
 )
 
-type ZipkinClient struct {
+type DatasourceInfo struct {
 	logger     log.Logger
 	url        string
 	httpClient *http.Client
 }
 
-func New(url string, hc *http.Client, logger log.Logger) (ZipkinClient, error) {
-	client := ZipkinClient{
-		logger:     logger,
-		url:        url,
-		httpClient: hc,
-	}
-	return client, nil
+// Client represents a client which can interact with zipkin api
+type Client interface {
+	Services() ([]string, error)
+	Spans(serviceName string) ([]string, error)
+	Traces(serviceName string, spanName string) ([][]model.SpanModel, error)
+	Trace(traceId string) ([]model.SpanModel, error)
+}
+
+// NewClient creates a new elasticsearch client
+var NewZipkinClient = func(ctx context.Context, ds *DatasourceInfo, logger log.Logger) (Client, error) {
+	logger.Debug("Creating new client")
+	return &baseClientImpl{
+		ctx:    ctx,
+		ds:     ds,
+		logger: logger,
+	}, nil
+}
+
+type baseClientImpl struct {
+	ctx    context.Context
+	ds     *DatasourceInfo
+	logger log.Logger
 }
 
 // Services returns list of services
 // https://zipkin.io/zipkin-api/#/default/get_services
-func (z *ZipkinClient) Services() ([]string, error) {
+func (c *baseClientImpl) Services() ([]string, error) {
 	services := []string{}
-	u, err := url.JoinPath(z.url, "/api/v2/services")
+	u, err := url.JoinPath(c.ds.url, "/api/v2/services")
 	if err != nil {
 		return services, backend.DownstreamError(fmt.Errorf("failed to join url: %w", err))
 	}
-	res, err := z.httpClient.Get(u)
+	res, err := c.ds.httpClient.Get(u)
 	if err != nil {
 		return services, err
 	}
 
 	defer func() {
 		if err = res.Body.Close(); err != nil {
-			z.logger.Error("Failed to close response body", "error", err)
+			c.logger.Error("Failed to close response body", "error", err)
 		}
 	}()
 	if err := json.NewDecoder(res.Body).Decode(&services); err != nil {
@@ -53,22 +69,22 @@ func (z *ZipkinClient) Services() ([]string, error) {
 
 // Spans returns list of spans for the given service
 // https://zipkin.io/zipkin-api/#/default/get_spans
-func (z *ZipkinClient) Spans(serviceName string) ([]string, error) {
+func (c *baseClientImpl) Spans(serviceName string) ([]string, error) {
 	spans := []string{}
 	if serviceName == "" {
 		return spans, errors.New("invalid/empty serviceName")
 	}
 
-	spansUrl, err := createZipkinURL(z.url, "/api/v2/spans", map[string]string{"serviceName": serviceName})
+	spansUrl, err := createZipkinURL(c.ds.url, "/api/v2/spans", map[string]string{"serviceName": serviceName})
 	if err != nil {
 		return spans, backend.DownstreamError(fmt.Errorf("failed to compose url: %w", err))
 	}
 
-	res, err := z.httpClient.Get(spansUrl)
+	res, err := c.ds.httpClient.Get(spansUrl)
 	defer func() {
 		if res != nil {
 			if err = res.Body.Close(); err != nil {
-				z.logger.Error("Failed to close response body", "error", err)
+				c.logger.Error("Failed to close response body", "error", err)
 			}
 		}
 	}()
@@ -83,7 +99,7 @@ func (z *ZipkinClient) Spans(serviceName string) ([]string, error) {
 
 // Traces returns list of traces for the given service and span
 // https://zipkin.io/zipkin-api/#/default/get_traces
-func (z *ZipkinClient) Traces(serviceName string, spanName string) ([][]model.SpanModel, error) {
+func (c *baseClientImpl) Traces(serviceName string, spanName string) ([][]model.SpanModel, error) {
 	traces := [][]model.SpanModel{}
 	if serviceName == "" {
 		return traces, errors.New("invalid/empty serviceName")
@@ -91,16 +107,16 @@ func (z *ZipkinClient) Traces(serviceName string, spanName string) ([][]model.Sp
 	if spanName == "" {
 		return traces, errors.New("invalid/empty spanName")
 	}
-	tracesUrl, err := createZipkinURL(z.url, "/api/v2/traces", map[string]string{"serviceName": serviceName, "spanName": spanName})
+	tracesUrl, err := createZipkinURL(c.ds.url, "/api/v2/traces", map[string]string{"serviceName": serviceName, "spanName": spanName})
 	if err != nil {
 		return traces, backend.DownstreamError(fmt.Errorf("failed to compose url: %w", err))
 	}
 
-	res, err := z.httpClient.Get(tracesUrl)
+	res, err := c.ds.httpClient.Get(tracesUrl)
 	defer func() {
 		if res != nil {
 			if err = res.Body.Close(); err != nil {
-				z.logger.Error("Failed to close response body", "error", err)
+				c.logger.Error("Failed to close response body", "error", err)
 			}
 		}
 	}()
@@ -115,18 +131,18 @@ func (z *ZipkinClient) Traces(serviceName string, spanName string) ([][]model.Sp
 
 // Trace returns trace for the given traceId
 // https://zipkin.io/zipkin-api/#/default/get_trace__traceId_
-func (z *ZipkinClient) Trace(traceId string) ([]model.SpanModel, error) {
+func (c *baseClientImpl) Trace(traceId string) ([]model.SpanModel, error) {
 	trace := []model.SpanModel{}
 	if traceId == "" {
 		return trace, backend.DownstreamError(errors.New("invalid/empty traceId"))
 	}
 
-	traceUrl, err := url.JoinPath(z.url, "/api/v2/trace", url.QueryEscape(traceId))
+	traceUrl, err := url.JoinPath(c.ds.url, "/api/v2/trace", url.QueryEscape(traceId))
 	if err != nil {
 		return trace, backend.DownstreamError(fmt.Errorf("failed to join url: %w", err))
 	}
 
-	res, err := z.httpClient.Get(traceUrl)
+	res, err := c.ds.httpClient.Get(traceUrl)
 	if err != nil {
 		if backend.IsDownstreamHTTPError(err) {
 			return trace, backend.DownstreamError(err)
@@ -137,7 +153,7 @@ func (z *ZipkinClient) Trace(traceId string) ([]model.SpanModel, error) {
 	defer func() {
 		if res != nil {
 			if err = res.Body.Close(); err != nil {
-				z.logger.Error("Failed to close response body", "error", err)
+				c.logger.Error("Failed to close response body", "error", err)
 			}
 		}
 	}()
