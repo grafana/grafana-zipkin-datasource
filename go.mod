@@ -1,4 +1,4 @@
-module github.com/grafana/zipkin
+module github.com/grafana/grafana-zipkin-datasource
 
 go 1.25.7
 
