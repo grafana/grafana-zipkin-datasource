@@ -33,7 +33,13 @@ export default defineConfig([
       'playwright/.auth/',
       '**/.idea',
       '**/.eslintcache',
+      '_vendor/'
     ],
   },
   ...baseConfig,
+  {
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+    },
+  },
 ]);

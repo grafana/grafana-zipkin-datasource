@@ -138,3 +138,4 @@ Below you can find source code for existing app plugins and other related docume
 ## Disclaimer
 
 We should delete `./_vendor/*` and `webpack.config.ts` when we have `@grafana/o11y-ds-frontend` pacakge published to npm.
+Also `./_vendor` folder must be removed from `.prettierignore`
