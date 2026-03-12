@@ -134,8 +134,3 @@ Below you can find source code for existing app plugins and other related docume
 - [Basic data source plugin example](https://github.com/grafana/grafana-plugin-examples/tree/master/examples/datasource-basic#readme)
 - [`plugin.json` documentation](https://grafana.com/developers/plugin-tools/reference/plugin-json)
 - [How to sign a plugin?](https://grafana.com/developers/plugin-tools/publish-a-plugin/sign-a-plugin)
-
-## Disclaimer
-
-We should delete `./_vendor/*` and `webpack.config.ts` when we have `@grafana/o11y-ds-frontend` pacakge published to npm.
-Also `./_vendor` folder must be removed from `.prettierignore`
