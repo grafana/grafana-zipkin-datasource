@@ -89,7 +89,7 @@ To configure basic settings for the data source, complete the following steps:
 1.  Set the data source's basic configuration options:
 
     | Name           | Description                                                              |
-        | -------------- | ------------------------------------------------------------------------ |
+    | -------------- | ------------------------------------------------------------------------ |
     | **Name**       | Sets the name you use to refer to the data source in panels and queries. |
     | **Default**    | Defines whether this data source is pre-selected for new panels.         |
     | **URL**        | Sets the URL of the Zipkin instance, such as `http://localhost:9411`.    |
