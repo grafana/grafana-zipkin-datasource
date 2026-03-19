@@ -1149,6 +1149,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@grafana/data@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/data@npm:13.0.0-23291652683"
+  dependencies:
+    "@braintree/sanitize-url": "npm:7.0.1"
+    "@grafana/i18n": "npm:13.0.0-23291652683"
+    "@grafana/schema": "npm:13.0.0-23291652683"
+    "@leeoniya/ufuzzy": "npm:1.0.19"
+    "@types/d3-interpolate": "npm:^3.0.0"
+    "@types/string-hash": "npm:1.1.3"
+    "@types/systemjs": "npm:6.15.3"
+    d3-interpolate: "npm:3.0.1"
+    d3-scale-chromatic: "npm:3.1.0"
+    date-fns: "npm:4.1.0"
+    dompurify: "npm:3.3.2"
+    eventemitter3: "npm:5.0.1"
+    fast_array_intersect: "npm:1.1.0"
+    history: "npm:4.10.1"
+    lodash: "npm:^4.17.23"
+    marked: "npm:16.3.0"
+    marked-mangle: "npm:1.1.12"
+    moment: "npm:2.30.1"
+    moment-timezone: "npm:0.5.47"
+    ol: "npm:10.7.0"
+    papaparse: "npm:5.5.3"
+    react-use: "npm:17.6.0"
+    rxjs: "npm:7.8.2"
+    string-hash: "npm:^1.1.3"
+    tinycolor2: "npm:1.6.0"
+    tslib: "npm:2.8.1"
+    uplot: "npm:1.6.32"
+    xss: "npm:^1.0.14"
+    zod: "npm:^4.3.0"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: 10c0/4476429d105583e145b5536815851847919200d68b76b6887529b785ebffa57f01399af65c239bd0dd9a69438a4e2573dae866ed38c158bdc1a6d8cc5a885634
+  languageName: node
+  linkType: hard
+
 "@grafana/e2e-selectors@npm:12.4.1":
   version: 12.4.1
   resolution: "@grafana/e2e-selectors@npm:12.4.1"
@@ -1168,6 +1208,17 @@ __metadata:
     tslib: "npm:2.8.1"
     typescript: "npm:5.9.2"
   checksum: 10c0/d437e29cb25e4974088ab9108d0489dd3c9fb599d03b46a480814bcdb36ee62bae6b5cad865137665ae8d1d0a23eb74b9e8cee34f386a5738e68eaddeb53bd36
+  languageName: node
+  linkType: hard
+
+"@grafana/e2e-selectors@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/e2e-selectors@npm:13.0.0-23291652683"
+  dependencies:
+    semver: "npm:^7.7.0"
+    tslib: "npm:2.8.1"
+    typescript: "npm:5.9.2"
+  checksum: 10c0/287b9b40f620326529e9482fa1b17839bcae5b442735f1c30049b4995c26560bf450e5fd74bdd6f893149ac494b5249913f601270d66bf38a6b2d52146b3e957
   languageName: node
   linkType: hard
 
@@ -1198,6 +1249,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@grafana/faro-core@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@grafana/faro-core@npm:2.3.0"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.9.0"
+    "@opentelemetry/otlp-transformer": "npm:^0.213.0"
+  checksum: 10c0/20fbe815d0b8a2d09f98e6da73df9e520366d17a3044c1d2c65d3cec305e0448f09887efa3b1483e5b063878131c3c012b4ec69401785847ffe45a4ef55ba89a
+  languageName: node
+  linkType: hard
+
 "@grafana/faro-web-sdk@npm:^1.13.2":
   version: 1.19.0
   resolution: "@grafana/faro-web-sdk@npm:1.19.0"
@@ -1206,6 +1267,17 @@ __metadata:
     ua-parser-js: "npm:^1.0.32"
     web-vitals: "npm:^4.0.1"
   checksum: 10c0/c42b6b6a8b7f30d7c779fe9fe9584a2e5f2eca65efa2a5fe47d60d582b1413cb43f99eaa1fafb46bce90125d39425db6abfdb1535c574bb6d636a5beca5e7771
+  languageName: node
+  linkType: hard
+
+"@grafana/faro-web-sdk@npm:^2.2.4":
+  version: 2.3.0
+  resolution: "@grafana/faro-web-sdk@npm:2.3.0"
+  dependencies:
+    "@grafana/faro-core": "npm:^2.3.0"
+    ua-parser-js: "npm:1.0.41"
+    web-vitals: "npm:^5.1.0"
+  checksum: 10c0/e8bc3993b5998b2794472adaa6f4680be8569673d4f7e6ee75f7bdb793553c1c7e03d918f2a4cb8e8fba827e4e6a72d420c879b844722addc0831a3675de0c3e
   languageName: node
   linkType: hard
 
@@ -1227,26 +1299,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/o11y-ds-frontend@file:./_vendor/grafana-o11y-ds-frontend::locator=zipkin%40workspace%3A.":
-  version: 12.4.1
-  resolution: "@grafana/o11y-ds-frontend@file:./_vendor/grafana-o11y-ds-frontend#./_vendor/grafana-o11y-ds-frontend::hash=0fb725&locator=zipkin%40workspace%3A."
+"@grafana/i18n@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/i18n@npm:13.0.0-23291652683"
+  dependencies:
+    "@formatjs/intl-durationformat": "npm:^0.7.0"
+    "@typescript-eslint/utils": "npm:^8.33.1"
+    fast-deep-equal: "npm:^3.1.3"
+    i18next: "npm:^25.0.0"
+    i18next-browser-languagedetector: "npm:^8.0.0"
+    i18next-pseudo: "npm:^2.2.1"
+    micro-memoize: "npm:^4.1.2"
+    react-i18next: "npm:^15.0.0"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/aeedf96ed1a9e74ca4e3ff181d1caa69b2f4561915f8be8a3eec33779c1a63372f610a6dc2c985466ac58012bebce891501e33f4a711d8e575403e6c50207c73
+  languageName: node
+  linkType: hard
+
+"@grafana/o11y-ds-frontend@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/o11y-ds-frontend@npm:13.0.0-23291652683"
   dependencies:
     "@emotion/css": "npm:11.13.5"
-    "@grafana/data": "npm:12.4.1"
-    "@grafana/e2e-selectors": "npm:12.4.1"
+    "@grafana/data": "npm:13.0.0-23291652683"
+    "@grafana/e2e-selectors": "npm:13.0.0-23291652683"
     "@grafana/plugin-ui": "npm:^0.13.1"
-    "@grafana/runtime": "npm:12.4.1"
-    "@grafana/schema": "npm:12.4.1"
-    "@grafana/ui": "npm:12.4.1"
+    "@grafana/runtime": "npm:13.0.0-23291652683"
+    "@grafana/schema": "npm:13.0.0-23291652683"
+    "@grafana/ui": "npm:13.0.0-23291652683"
     react-select: "npm:5.10.2"
     react-use: "npm:17.6.0"
     rxjs: "npm:7.8.2"
     tslib: "npm:2.8.1"
   peerDependencies:
-    "@grafana/runtime": "*"
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/539b71e8cc865c5b9b9c5bd4c658b3b6931909b52d6d7a6f3ef43e267eaa552ba8df25ac5c9b23f19425b888e2376b09eef715bad3f50b6c06098fd7b39ac221
+  checksum: 10c0/76ea8e95ff3905478a86b6b044ba03fac3445d6c731f76a2d5323394bd6bba39524b00ef74c846b74d6a998bb22dd4c43ea076ba57ee35258efdee5ff4f518aa
   languageName: node
   linkType: hard
 
@@ -1326,12 +1415,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@grafana/runtime@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/runtime@npm:13.0.0-23291652683"
+  dependencies:
+    "@grafana/data": "npm:13.0.0-23291652683"
+    "@grafana/e2e-selectors": "npm:13.0.0-23291652683"
+    "@grafana/faro-web-sdk": "npm:^2.2.4"
+    "@grafana/schema": "npm:13.0.0-23291652683"
+    "@grafana/ui": "npm:13.0.0-23291652683"
+    "@openfeature/core": "npm:^1.9.0"
+    "@openfeature/ofrep-web-provider": "npm:^0.3.3"
+    "@openfeature/react-sdk": "npm:^1.2.0"
+    "@types/systemjs": "npm:6.15.3"
+    history: "npm:4.10.1"
+    lodash: "npm:^4.17.23"
+    react-loading-skeleton: "npm:3.5.0"
+    react-use: "npm:17.6.0"
+    rxjs: "npm:7.8.2"
+    tslib: "npm:2.8.1"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: 10c0/d31dd99583d35e06528216ef18296d0bb69661a50d793b8d9a1e146431b8e46f639844f19c5a2a524bc7cdaff8e5ed903f9977c5c456b0ef9a17dcfb3f28255f
+  languageName: node
+  linkType: hard
+
 "@grafana/schema@npm:12.4.1":
   version: 12.4.1
   resolution: "@grafana/schema@npm:12.4.1"
   dependencies:
     tslib: "npm:2.8.1"
   checksum: 10c0/8121f9ca799bfe538820f0aef730562ae796bcd5fbce80147f6cf3a959201865a1a9353b609277b844ccf78b6475d2d649dc44d0e76fd05ce51923a4dd99fc0f
+  languageName: node
+  linkType: hard
+
+"@grafana/schema@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/schema@npm:13.0.0-23291652683"
+  dependencies:
+    tslib: "npm:2.8.1"
+  checksum: 10c0/6c3595fed2d226c341aff1610a3caebbbe112459ee2899b8da7cc86fc696756bd2e4178df0c1639dbf2036496d6612ef4cfa82bbd86a0942736734f8234df608
   languageName: node
   linkType: hard
 
@@ -1419,6 +1543,86 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
   checksum: 10c0/65c71b2e66d3b4728b939b3a8400c1eea1ca53bf035f168ff83b44ba5fb9657688052dffd6544142accd134b81b744c0880c55ca7d154a11bcafa9bc08f1a0d4
+  languageName: node
+  linkType: hard
+
+"@grafana/ui@npm:13.0.0-23291652683":
+  version: 13.0.0-23291652683
+  resolution: "@grafana/ui@npm:13.0.0-23291652683"
+  dependencies:
+    "@emotion/css": "npm:11.13.5"
+    "@emotion/react": "npm:11.14.0"
+    "@emotion/serialize": "npm:1.3.3"
+    "@floating-ui/react": "npm:0.27.16"
+    "@grafana/data": "npm:13.0.0-23291652683"
+    "@grafana/e2e-selectors": "npm:13.0.0-23291652683"
+    "@grafana/faro-web-sdk": "npm:^2.2.4"
+    "@grafana/i18n": "npm:13.0.0-23291652683"
+    "@grafana/schema": "npm:13.0.0-23291652683"
+    "@hello-pangea/dnd": "npm:18.0.1"
+    "@monaco-editor/react": "npm:4.7.0"
+    "@popperjs/core": "npm:2.11.8"
+    "@rc-component/cascader": "npm:1.9.0"
+    "@rc-component/drawer": "npm:1.3.0"
+    "@rc-component/picker": "npm:1.7.1"
+    "@rc-component/slider": "npm:1.0.1"
+    "@rc-component/tooltip": "npm:1.4.0"
+    "@react-aria/dialog": "npm:3.5.31"
+    "@react-aria/focus": "npm:3.21.2"
+    "@react-aria/overlays": "npm:3.30.0"
+    "@react-aria/utils": "npm:3.31.0"
+    "@tanstack/react-virtual": "npm:^3.5.1"
+    "@types/jquery": "npm:3.5.33"
+    "@types/lodash": "npm:4.17.20"
+    "@types/react-table": "npm:7.7.20"
+    calculate-size: "npm:1.1.1"
+    classnames: "npm:2.5.1"
+    clsx: "npm:^2.1.1"
+    d3: "npm:7.9.0"
+    date-fns: "npm:4.1.0"
+    downshift: "npm:^9.0.6"
+    hoist-non-react-statics: "npm:3.3.2"
+    i18next: "npm:^25.0.0"
+    i18next-browser-languagedetector: "npm:^8.0.0"
+    immutable: "npm:^5.1.5"
+    is-hotkey: "npm:0.2.0"
+    jquery: "npm:3.7.1"
+    lodash: "npm:^4.17.23"
+    micro-memoize: "npm:^4.1.2"
+    moment: "npm:2.30.1"
+    monaco-editor: "npm:0.34.1"
+    ol: "npm:10.7.0"
+    prismjs: "npm:1.30.0"
+    react-calendar: "npm:^6.0.0"
+    react-colorful: "npm:5.6.1"
+    react-custom-scrollbars-2: "npm:4.5.0"
+    react-data-grid: "github:grafana/react-data-grid#a10c748f40edc538425b458af4e471a8262ec4ed"
+    react-dropzone: "npm:14.3.8"
+    react-highlight-words: "npm:0.21.0"
+    react-hook-form: "npm:^7.49.2"
+    react-i18next: "npm:^15.0.0"
+    react-inlinesvg: "npm:4.2.0"
+    react-loading-skeleton: "npm:3.5.0"
+    react-router-dom: "npm:5.3.4"
+    react-router-dom-v5-compat: "npm:^6.26.1"
+    react-select: "npm:5.10.2"
+    react-table: "npm:7.8.0"
+    react-transition-group: "npm:4.4.5"
+    react-use: "npm:17.6.0"
+    react-window: "npm:1.8.11"
+    rxjs: "npm:7.8.2"
+    slate: "npm:0.47.9"
+    slate-plain-serializer: "npm:0.7.13"
+    slate-react: "npm:0.22.10"
+    tinycolor2: "npm:1.6.0"
+    tslib: "npm:2.8.1"
+    uplot: "npm:1.6.32"
+    uuid: "npm:11.1.0"
+    uwrap: "npm:0.1.2"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: 10c0/ba8ae6a6699e9772b921194c184f9dcc7d53f0b4513a2f6610f0132d6ab890b9852c04c08cd8385d4afd6073da1bdf59d3d8c52faf651de442b48e8f0807e2a9
   languageName: node
   linkType: hard
 
@@ -2133,6 +2337,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/api-logs@npm:0.213.0":
+  version: 0.213.0
+  resolution: "@opentelemetry/api-logs@npm:0.213.0"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.3.0"
+  checksum: 10c0/74421639d518b6d060aae8b0693feb6e7bcf2674951dfadc5ad111fc7285b1ba403010fbf2c5cd82b84267c31faef0bb72e4d61c008c5ec572471a0100e5c493
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/api@npm:^1.3.0, @opentelemetry/api@npm:^1.9.0":
   version: 1.9.0
   resolution: "@opentelemetry/api@npm:1.9.0"
@@ -2148,6 +2361,17 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ">=1.0.0 <1.10.0"
   checksum: 10c0/d587b1289559757d80da98039f9f57612f84f72ec608cd665dc467c7c6c5ce3a987dfcc2c63b521c7c86ce984a2552b3ead15a0dc458de1cf6bde5cdfe4ca9d8
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/core@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@opentelemetry/core@npm:2.6.0"
+  dependencies:
+    "@opentelemetry/semantic-conventions": "npm:^1.29.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.0.0 <1.10.0"
+  checksum: 10c0/526854a3d8917c82b41bfea6ed48f2e9ae38705d1758710b86f879e5c4910b9dbe7fa03d36205e98ebebe4854ae781116d8f298a10cd0fe2e51138e75926ec3a
   languageName: node
   linkType: hard
 
@@ -2168,6 +2392,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/otlp-transformer@npm:^0.213.0":
+  version: 0.213.0
+  resolution: "@opentelemetry/otlp-transformer@npm:0.213.0"
+  dependencies:
+    "@opentelemetry/api-logs": "npm:0.213.0"
+    "@opentelemetry/core": "npm:2.6.0"
+    "@opentelemetry/resources": "npm:2.6.0"
+    "@opentelemetry/sdk-logs": "npm:0.213.0"
+    "@opentelemetry/sdk-metrics": "npm:2.6.0"
+    "@opentelemetry/sdk-trace-base": "npm:2.6.0"
+    protobufjs: "npm:^7.0.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.3.0
+  checksum: 10c0/38ff685e4d3e88354d4995e71e69efd9cde83bec9922fc408f9ac9babc3a5b2dd9f713267b7b02ec80e8181234f2ffb6f91334e3bae3f95e18ce92c73c308b10
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/resources@npm:2.0.1":
   version: 2.0.1
   resolution: "@opentelemetry/resources@npm:2.0.1"
@@ -2177,6 +2418,18 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ">=1.3.0 <1.10.0"
   checksum: 10c0/96532b7553b26607a7a892d72f6b03ad12bd542dc23c95135a8ae40362da9c883c21a4cff3d2296d9e0e9bd899a5977e325ed52d83142621a8ffe81d08d99341
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/resources@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@opentelemetry/resources@npm:2.6.0"
+  dependencies:
+    "@opentelemetry/core": "npm:2.6.0"
+    "@opentelemetry/semantic-conventions": "npm:^1.29.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.3.0 <1.10.0"
+  checksum: 10c0/9c75654690c0917be948ed18453f3085a54541f0db8c8b728515f5a26b67c5fc1f6acd2644462e17368045e3c3fd65f728e8bd0a19c31fe12cc443fa0f0f058c
   languageName: node
   linkType: hard
 
@@ -2193,6 +2446,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/sdk-logs@npm:0.213.0":
+  version: 0.213.0
+  resolution: "@opentelemetry/sdk-logs@npm:0.213.0"
+  dependencies:
+    "@opentelemetry/api-logs": "npm:0.213.0"
+    "@opentelemetry/core": "npm:2.6.0"
+    "@opentelemetry/resources": "npm:2.6.0"
+    "@opentelemetry/semantic-conventions": "npm:^1.29.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.4.0 <1.10.0"
+  checksum: 10c0/b0916f49061bb92bd8c6133207640fd2dcba8b639299b0673f55c976f1d4452c2434e6d55526787781a9f1b736ea192d8608e3b1daafdb85480967029e491442
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/sdk-metrics@npm:2.0.1":
   version: 2.0.1
   resolution: "@opentelemetry/sdk-metrics@npm:2.0.1"
@@ -2202,6 +2469,18 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ">=1.9.0 <1.10.0"
   checksum: 10c0/fcf7ae23d459e5da7cb6fe150064b6dc4e11e47925b08980c3b357bd5534ad388898bbacd0ff8befef6801f43b35142dc7123f028ffde2d0fe2bd72177d07639
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/sdk-metrics@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@opentelemetry/sdk-metrics@npm:2.6.0"
+  dependencies:
+    "@opentelemetry/core": "npm:2.6.0"
+    "@opentelemetry/resources": "npm:2.6.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.9.0 <1.10.0"
+  checksum: 10c0/b174199aa1ef6086a15281eb4f7abac434e5d937e488dfe0929ce7fd7119d829da26997913c55cde56d5350983451678f3157e8bc0cf134a6186cee812307f31
   languageName: node
   linkType: hard
 
@@ -2215,6 +2494,19 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ">=1.3.0 <1.10.0"
   checksum: 10c0/4e3c733296012b758d007e9c0d8a5b175edbe9a680c73ec75303476e7982b73ad4209f1a2791c1a94c428e5a53eba6c2a72faa430c70336005aa58744d6cb37b
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/sdk-trace-base@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@opentelemetry/sdk-trace-base@npm:2.6.0"
+  dependencies:
+    "@opentelemetry/core": "npm:2.6.0"
+    "@opentelemetry/resources": "npm:2.6.0"
+    "@opentelemetry/semantic-conventions": "npm:^1.29.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.3.0 <1.10.0"
+  checksum: 10c0/92363197f17d37adf206299da95f683fc039a77f9477caad4bbd6599561cab699c29a1a72830cb1271d7ffc50cd2ed061e85e92f69d06e3fa1946bb742a41ce2
   languageName: node
   linkType: hard
 
@@ -5759,6 +6051,18 @@ __metadata:
     "@types/trusted-types":
       optional: true
   checksum: 10c0/66b1787b0bc8250d8f58e13284cf7f5f6bb400a0a55515e7a2a030316a4bb0d8306fdb669c17ed86ed58ff7e53c62b5da4488c2f261d11c58870fe01b8fcc486
+  languageName: node
+  linkType: hard
+
+"dompurify@npm:3.3.2":
+  version: 3.3.2
+  resolution: "dompurify@npm:3.3.2"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.7"
+  dependenciesMeta:
+    "@types/trusted-types":
+      optional: true
+  checksum: 10c0/8989525f003dd062e829137982b5412143421342991b2732bd621a1efd98b2c3cdc4f37547601d0727d3bc20f1d0eb2a0ecca287d3688f168cdb54ced867ca8f
   languageName: node
   linkType: hard
 
@@ -9842,7 +10146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:^7.3.0":
+"protobufjs@npm:^7.0.0, protobufjs@npm:^7.3.0":
   version: 7.5.4
   resolution: "protobufjs@npm:7.5.4"
   dependencies:
@@ -12066,7 +12370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^1.0.32":
+"ua-parser-js@npm:1.0.41, ua-parser-js@npm:^1.0.32":
   version: 1.0.41
   resolution: "ua-parser-js@npm:1.0.41"
   bin:
@@ -12358,6 +12662,13 @@ __metadata:
   version: 4.2.4
   resolution: "web-vitals@npm:4.2.4"
   checksum: 10c0/383c9281d5b556bcd190fde3c823aeb005bb8cf82e62c75b47beb411014a4ed13fa5c5e0489ed0f1b8d501cd66b0bebcb8624c1a75750bd5df13e2a3b1b2d194
+  languageName: node
+  linkType: hard
+
+"web-vitals@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "web-vitals@npm:5.1.0"
+  checksum: 10c0/1af22ddbe2836ba880fcb492cfba24c3349f4760ebb5e92f38324ea67bca3c4dbb9c86f1a32af4795b6115cdaf98b90000cf3a7402bffef6e8c503f0d1b2e706
   languageName: node
   linkType: hard
 
@@ -12813,7 +13124,7 @@ __metadata:
     "@emotion/css": "npm:11.13.5"
     "@grafana/data": "npm:12.4.1"
     "@grafana/eslint-config": "npm:9.0.0"
-    "@grafana/o11y-ds-frontend": "file:./_vendor/grafana-o11y-ds-frontend"
+    "@grafana/o11y-ds-frontend": "npm:13.0.0-23291652683"
     "@grafana/plugin-e2e": "npm:3.4.5"
     "@grafana/plugin-ui": "npm:0.13.1"
     "@grafana/runtime": "npm:12.4.1"
