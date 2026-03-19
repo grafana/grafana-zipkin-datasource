@@ -1,5 +1,5 @@
 # Changelog
 
-## 1.0.0 (Unreleased)
+## 12.4.2 (Unreleased)
 
-Initial release.
+Initial external release.

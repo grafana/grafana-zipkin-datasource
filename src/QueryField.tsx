@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { fromPairs } from 'lodash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn, useMount, useMountedState } from 'react-use';
 import { AsyncState } from 'react-use/lib/useAsyncFn';
 
@@ -77,6 +77,8 @@ export const ZipkinQueryField = ({ query, onChange, onRunQuery, datasource }: Pr
           <FileDropzone
             options={{ multiple: false }}
             onLoad={(result) => {
+              // TODO: mutating datasource prop directly is not ideal; refactor to store uploadedJson in component state or a ref
+              // eslint-disable-next-line react-hooks/immutability
               datasource.uploadedJson = result;
               onChange({
                 ...query,
