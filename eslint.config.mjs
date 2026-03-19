@@ -33,7 +33,6 @@ export default defineConfig([
       'playwright/.auth/',
       '**/.idea',
       '**/.eslintcache',
-      '_vendor/'
     ],
   },
   ...baseConfig,
