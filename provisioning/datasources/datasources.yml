@@ -2,7 +2,7 @@ apiVersion: 1
 
 datasources:
   - name: 'zipkin'
-    type: 'grafana-zipkin-datasource'
+    type: 'zipkin'
     access: proxy
     isDefault: false
     orgId: 1
