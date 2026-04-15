@@ -3,7 +3,7 @@
   "name": "Zipkin",
   "id": "zipkin",
   "category": "tracing",
-  "executable": "gpx_grafana_zipkin_datasource",
+  "executable": "gpx_grafana-zipkin-datasource",
   "backend": true,
   "metrics": true,
   "alerting": false,
