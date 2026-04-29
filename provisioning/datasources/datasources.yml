@@ -1,14 +1,13 @@
 apiVersion: 1
 
 datasources:
-  - name: 'zipkin'
-    type: 'zipkin'
+  - name: zipkin
+    uid: zipkin-e2e
+    type: zipkin
     access: proxy
-    isDefault: false
+    url: http://zipkin:9411
+    isDefault: true
     orgId: 1
     version: 1
     editable: true
-    jsonData:
-      path: '/resources'
-    secureJsonData:
-      apiKey: 'api-key'
+    jsonData: {}

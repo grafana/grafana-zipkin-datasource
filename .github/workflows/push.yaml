@@ -16,3 +16,12 @@ jobs:
     with:
       plugin-version-suffix: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || '' }}
       run-playwright: true
+
+  publish-and-deploy:
+    if: github.ref == 'refs/heads/main'
+    uses: grafana/data-sources-ci-workflows/.github/workflows/cd-dev.yml@main
+    permissions:
+      attestations: write
+      contents: write
+      id-token: write
+      pull-requests: read
