@@ -109,10 +109,13 @@ test.describe('Query editor', () => {
       await explorePage.mockResourceResponse('services', []);
       const queryRow = getQueryEditorRow(page, 'A');
       await queryRow.getByRole('button', { name: 'Import trace' }).click();
-      await expect(page.getByRole('heading', { name: 'Upload trace' })).toBeVisible();
-      // Close the modal so subsequent tests are not affected (createDataSource
-      // fixtures are per-test but the dialog leaks if left open within a test)
-      await page.getByRole('button', { name: 'Close' }).click();
+      const modalHeading = page.getByRole('heading', { name: 'Upload trace' });
+      await expect(modalHeading).toBeVisible();
+      // Dismiss with Escape rather than clicking the X icon — on Grafana 12.3.x
+      // a substring match of `name: 'Close'` also matches the mega-menu's
+      // "Close menu" button. Escape works across all versions.
+      await page.keyboard.press('Escape');
+      await expect(modalHeading).toBeHidden();
     });
   });
 
