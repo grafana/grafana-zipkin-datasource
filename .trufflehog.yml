@@ -1,0 +1,5 @@
+exclude_paths:
+  # Test fixture trace IDs and span IDs are synthetic hex strings that can
+  # trigger false-positive secret detections. The fixtures hold no real
+  # credentials.
+  - tests/e2e/fixtures/

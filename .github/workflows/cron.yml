@@ -1,0 +1,15 @@
+name: Scheduled Cloud end-to-end tests
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  playwright-cloud:
+    uses: grafana/data-sources-ci-workflows/.github/workflows/playwright-cloud.yml@main
+    secrets: inherit
+    with:
+      repo-secrets: |
+        DS_INSTANCE_NAME=ci/data/data-sources/grafana-zipkin-datasource/zipkin:name
+        DS_INSTANCE_URL=ci/data/data-sources/grafana-zipkin-datasource/zipkin:url
