@@ -6,3 +6,59 @@ services:
     environment:
       # Grafana 13 enables splashScreen by default; the overlay blocks Playwright interactions.
       GF_FEATURE_TOGGLES_splashScreen: 'false'
+    depends_on:
+      zipkin:
+        condition: service_healthy
+      zipkin-loader:
+        condition: service_completed_successfully
+
+  zipkin:
+    image: openzipkin/zipkin:3
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider http://127.0.0.1:9411/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  # One-shot fixture loader. Substitutes "now" timestamps into the JSON
+  # fixtures and POSTs them to the Zipkin v2 spans API. Zipkin's default
+  # in-memory store has a finite retention window, so absolute timestamps
+  # would age out between test runs - the templating keeps each run fresh.
+  zipkin-loader:
+    image: curlimages/curl:latest
+    depends_on:
+      zipkin:
+        condition: service_healthy
+    volumes:
+      - ./tests/e2e/fixtures:/data:ro
+    entrypoint:
+      - sh
+      - -c
+      - |
+        set -e
+        # Microseconds since epoch (Zipkin span timestamps are micros).
+        now_us=$$(($$(date +%s) * 1000000))
+        for src in /data/*.json; do
+          dst="/tmp/$$(basename "$$src")"
+          # Substitute __NOW_US_PLUS_<N>__ first (more specific), then __NOW_US__.
+          sed -E "s/__NOW_US_PLUS_([0-9]+)__/$$(echo "$$now_us")+\\1/g; s/__NOW_US__/$$now_us/g" "$$src" \
+            | awk '{
+                while (match($$0, /[0-9]+\+[0-9]+/)) {
+                  expr = substr($$0, RSTART, RLENGTH)
+                  split(expr, parts, "+")
+                  result = parts[1] + parts[2]
+                  $$0 = substr($$0, 1, RSTART - 1) result substr($$0, RSTART + RLENGTH)
+                }
+                print
+              }' > "$$dst"
+          curl --silent --show-error --fail \
+            --retry 5 --retry-delay 2 --retry-connrefused --retry-all-errors \
+            -X POST "http://zipkin:9411/api/v2/spans" \
+            -H "Content-Type: application/json" \
+            --data-binary "@$$dst"
+        done
+        echo "Fixture traces loaded"
+    restart: no

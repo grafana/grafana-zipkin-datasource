@@ -1,0 +1,12 @@
+[
+  {
+    "traceId": "2222222222222222",
+    "id": "2222222222222222",
+    "name": "process-order",
+    "kind": "SERVER",
+    "timestamp": __NOW_US__,
+    "duration": 120000,
+    "localEndpoint": { "serviceName": "backend" },
+    "tags": { "order.id": "42" }
+  }
+]
