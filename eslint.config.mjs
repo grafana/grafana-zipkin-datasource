@@ -36,4 +36,15 @@ export default defineConfig([
     ],
   },
   ...baseConfig,
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          fixStyle: 'inline-type-imports',
+        },
+      ],
+    },
+  },
 ]);

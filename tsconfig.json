@@ -1,3 +1,13 @@
 {
-  "extends": "./.config/tsconfig.json"
+  "extends": "./.config/tsconfig.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "noUncheckedSideEffectImports": false,
+    "types": ["jest", "node"]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "ignoreDeprecations": "6.0"
+    }
+  }
 }
