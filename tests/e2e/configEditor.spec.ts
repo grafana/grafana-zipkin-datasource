@@ -44,6 +44,7 @@ test.describe('Config editor', () => {
             .getByText('Type: Zipkin', { exact: true })
             .or(page.getByText(/^Type\s*Zipkin$/))
             .or(page.getByRole('heading', { name: 'Connection', exact: true }))
+            .first()
         ).toBeVisible();
         await expect(page.getByRole('heading', { name: 'Connection', exact: true })).toBeVisible();
         await expect(getDataSourceConnectionUrlInput(page)).toBeVisible();
