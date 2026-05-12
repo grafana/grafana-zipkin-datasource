@@ -35,7 +35,17 @@ test.describe('Config editor', () => {
         await createDataSourceConfigPage({ type: PLUGIN_TYPE });
 
         await expect(page.getByText(/Before you can use the Zipkin data source/)).toBeVisible();
-        await expect(page.getByText('Type: Zipkin', { exact: true })).toBeVisible();
+        // Grafana <=13.0: "Type: Zipkin" subtitle in the page header.
+        // Grafana >=13.1: subtitle removed (grafana/grafana#123966).
+        // Fall back to the Connection heading so this also serves as the
+        // page-load wait on builds where the type label is gone.
+        await expect(
+          page
+            .getByText('Type: Zipkin', { exact: true })
+            .or(page.getByText(/^Type\s*Zipkin$/))
+            .or(page.getByRole('heading', { name: 'Connection', exact: true }))
+            .first()
+        ).toBeVisible();
         await expect(page.getByRole('heading', { name: 'Connection', exact: true })).toBeVisible();
         await expect(getDataSourceConnectionUrlInput(page)).toBeVisible();
       }
