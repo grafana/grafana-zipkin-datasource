@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.4.4
+
+- Bump go version & otel dependencies in #61
+
 ## 12.4.3
 
 - Bump typescript to v6.0.3
