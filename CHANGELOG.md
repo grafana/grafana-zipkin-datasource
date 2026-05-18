@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.5
+
+### Patch Changes
+
+- fc3cb2d: Fix incorrect JSON field casing in TraceLog struct
+
 ## 12.4.4
 
 - Bump go version & otel dependencies in #61
