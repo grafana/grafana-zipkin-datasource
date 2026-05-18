@@ -2,8 +2,8 @@
 
 ## 12.4.5
 
-Fix incorrect JSON field casing in TraceLog struct
-Bump go version to v1.16.3
+- #55 Fix incorrect JSON field casing in TraceLog struct
+- #61 Bump go version to v1.16.3 #61
 
 ## 12.4.4
 
@@ -19,4 +19,4 @@ Bump go version to v1.16.3
 
 ## 12.4.2 (Unreleased)
 
-Initial external release.
+- Initial external release.
