@@ -2,7 +2,7 @@
 
 ## 12.4.5
 
-- fc3cb2d: Fix incorrect JSON field casing in TraceLog struct
+Fix incorrect JSON field casing in TraceLog struct
 
 ## 12.4.4
 
