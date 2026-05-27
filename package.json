@@ -8,10 +8,10 @@
     "test:ci": "jest --passWithNoTests --maxWorkers 4",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache .",
-    "lint:fix": "npm run lint -- --fix && prettier --write --list-different .",
+    "lint:fix": "yarn lint -- --fix && prettier --write --list-different .",
     "e2e": "playwright test",
     "server": "docker compose up --build",
-    "sign": "npx --yes @grafana/sign-plugin@latest"
+    "sign": "yarn dlx @grafana/sign-plugin@latest"
   },
   "author": "Grafana",
   "license": "AGPL-3.0",
@@ -20,7 +20,7 @@
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.7.0",
     "@grafana/tsconfig": "2.1.0",
-    "@openfeature/web-sdk": "1.4.0",
+    "@openfeature/web-sdk": "1.8.0",
     "@playwright/test": "1.58.2",
     "@stylistic/eslint-plugin-ts": "4.4.1",
     "@swc/core": "1.15.18",
@@ -72,11 +72,10 @@
     "@grafana/plugin-ui": "0.13.1",
     "@grafana/runtime": "13.0.1",
     "@grafana/ui": "13.0.1",
-    "lodash": "4.17.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-use": "17.6.0",
     "rxjs": "7.8.2"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.15.0"
 }
