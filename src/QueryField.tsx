@@ -1,5 +1,4 @@
 import { css } from '@emotion/css';
-import { fromPairs } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn, useMount, useMountedState } from 'react-use';
 import { type AsyncState } from 'react-use/lib/useAsyncFn';
@@ -197,7 +196,7 @@ export function useLoadOptions(datasource: ZipkinDatasource, setErrorText: (text
         const response: string[] = await datasource.metadataRequest('spans', { serviceName: service });
         if (isMounted()) {
           setAllOptions((state) => {
-            const spanOptions = fromPairs(response.map((span: string) => [span, undefined]));
+            const spanOptions = Object.fromEntries(response.map((span: string) => [span, undefined]));
             return {
               ...state,
               [service]: spanOptions as any,
@@ -226,7 +225,7 @@ export function useLoadOptions(datasource: ZipkinDatasource, setErrorText: (text
         const traces: ZipkinSpan[][] = await datasource.metadataRequest('traces', search);
         if (isMounted()) {
           const newTraces = traces.length
-            ? fromPairs(
+            ? Object.fromEntries(
                 traces.map((trace) => {
                   const rootSpan = trace.find((span) => !span.parentId)!;
 

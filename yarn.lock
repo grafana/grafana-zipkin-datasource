@@ -2115,15 +2115,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfeature/web-sdk@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@openfeature/web-sdk@npm:1.4.0"
-  peerDependencies:
-    "@openfeature/core": ^1.6.0
-  checksum: 10c0/c2bfcc3cdc7c920ee219ccbba4b10250bfb295f3a9d75b60fc945a0c0950e7cc5cb23cb62fd44289b14246d7e4be5cce5d99da9cdb2fcfaa6ea1065e49c5be2f
-  languageName: node
-  linkType: hard
-
 "@openfeature/web-sdk@npm:^1.7.3":
   version: 1.8.0
   resolution: "@openfeature/web-sdk@npm:1.8.0"
@@ -8753,7 +8744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.23, lodash@npm:^4.1.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.23, lodash@npm:^4.17.4":
+"lodash@npm:^4.1.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.23, lodash@npm:^4.17.4":
   version: 4.17.23
   resolution: "lodash@npm:4.17.23"
   checksum: 10c0/1264a90469f5bb95d4739c43eb6277d15b6d9e186df4ac68c3620443160fc669e2f14c11e7d8b2ccf078b81d06147c01a8ccced9aab9f9f63d50dcf8cace6bf6
@@ -12914,7 +12905,6 @@ __metadata:
     "@grafana/runtime": "npm:13.0.1"
     "@grafana/tsconfig": "npm:2.1.0"
     "@grafana/ui": "npm:13.0.1"
-    "@openfeature/web-sdk": "npm:1.4.0"
     "@playwright/test": "npm:1.58.2"
     "@stylistic/eslint-plugin-ts": "npm:4.4.1"
     "@swc/core": "npm:1.15.18"
@@ -12944,7 +12934,6 @@ __metadata:
     imports-loader: "npm:5.0.0"
     jest: "npm:30.3.0"
     jest-environment-jsdom: "npm:30.3.0"
-    lodash: "npm:4.17.23"
     prettier: "npm:3.8.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
