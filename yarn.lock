@@ -2115,7 +2115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfeature/web-sdk@npm:^1.7.3":
+"@openfeature/web-sdk@npm:1.8.0, @openfeature/web-sdk@npm:^1.7.3":
   version: 1.8.0
   resolution: "@openfeature/web-sdk@npm:1.8.0"
   peerDependencies:
@@ -12905,6 +12905,7 @@ __metadata:
     "@grafana/runtime": "npm:13.0.1"
     "@grafana/tsconfig": "npm:2.1.0"
     "@grafana/ui": "npm:13.0.1"
+    "@openfeature/web-sdk": "npm:1.8.0"
     "@playwright/test": "npm:1.58.2"
     "@stylistic/eslint-plugin-ts": "npm:4.4.1"
     "@swc/core": "npm:1.15.18"
