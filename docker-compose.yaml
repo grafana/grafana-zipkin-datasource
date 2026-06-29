@@ -13,7 +13,7 @@ services:
         condition: service_completed_successfully
 
   zipkin:
-    image: openzipkin/zipkin:3
+    image: openzipkin/zipkin:3@sha256:d17e856dcbba7ffeefbbfc252f89ab78a4ab6faed47e646d46daad78f91b5ee2
     ports:
       - "9411:9411"
     healthcheck:
@@ -28,7 +28,7 @@ services:
   # in-memory store has a finite retention window, so absolute timestamps
   # would age out between test runs - the templating keeps each run fresh.
   zipkin-loader:
-    image: curlimages/curl:latest
+    image: curlimages/curl:latest@sha256:7c12af72ceb38b7432ab85e1a265cff6ae58e06f95539d539b654f2cfa64bb13
     depends_on:
       zipkin:
         condition: service_healthy
