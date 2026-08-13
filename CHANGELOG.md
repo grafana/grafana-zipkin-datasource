@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.4.6
+
+- Update dependencies
+
 ## 12.4.5
 
 - Fix incorrect JSON field casing in TraceLog struct #55
