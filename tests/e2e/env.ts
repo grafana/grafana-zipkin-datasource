@@ -19,7 +19,9 @@ export const isCloudRun = !!process.env.GRAFANA_URL;
  * tested nothing. Failing loudly here turns that into a visible error instead.
  */
 function requireOnCloud(name: string, localDefault: string): string {
-  const value = process.env[name];
+  // Vault values routinely carry a trailing newline, which survives the trip
+  // through GITHUB_ENV and would corrupt any URL built from them.
+  const value = process.env[name]?.trim();
   if (value) {
     return value;
   }
@@ -44,15 +46,45 @@ const LOCAL_DS_UID = 'zipkin-e2e';
  * rather than hardcoding a second constant that can drift.
  */
 export async function resolveDataSourceUid(page: Page): Promise<string> {
-  if (process.env.DS_E2E_UID) {
-    return process.env.DS_E2E_UID;
+  const override = process.env.DS_E2E_UID?.trim();
+  if (override) {
+    return override;
   }
   if (!isCloudRun) {
     return LOCAL_DS_UID;
   }
-  const response = await page.request.get(`/api/datasources/name/${encodeURIComponent(DS_NAME)}`);
+
+  // Listing rather than hitting /api/datasources/name/<name> so a stale name in
+  // Vault produces a diagnosable error listing what does exist, instead of a
+  // bare 404 whose name is masked out of the CI log as a secret.
+  const response = await page.request.get('/api/datasources');
   if (!response.ok()) {
-    throw new Error(`Could not resolve uid for data source "${DS_NAME}": HTTP ${response.status()}`);
+    throw new Error(`Could not list data sources on ${process.env.GRAFANA_URL}: HTTP ${response.status()}`);
   }
-  return (await response.json()).uid;
+
+  const zipkinDataSources: Array<{ name: string; uid: string }> = (await response.json()).filter(
+    (ds: { type: string }) => ds.type === 'zipkin'
+  );
+
+  const exactMatch = zipkinDataSources.find((ds) => ds.name === DS_NAME);
+  if (exactMatch) {
+    return exactMatch.uid;
+  }
+
+  // The nightly exists to catch the Cloud backend breaking, so a cosmetic name
+  // drift should not hold it red when there is exactly one candidate. Warn
+  // loudly instead so the stale Vault value still gets noticed and fixed.
+  if (zipkinDataSources.length === 1) {
+    console.warn(
+      `DS_INSTANCE_NAME does not match any data source; falling back to the only Zipkin ` +
+        `data source on the instance ("${zipkinDataSources[0].name}"). Update the Vault secret.`
+    );
+    return zipkinDataSources[0].uid;
+  }
+
+  throw new Error(
+    `Could not resolve a Zipkin data source matching DS_INSTANCE_NAME. Found ` +
+      `${zipkinDataSources.length} Zipkin data source(s): ` +
+      `${JSON.stringify(zipkinDataSources.map((ds) => ds.name))}.`
+  );
 }
