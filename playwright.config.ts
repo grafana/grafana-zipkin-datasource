@@ -5,6 +5,12 @@ import { dirname } from 'node:path';
 const pluginE2eAuth = `${dirname(require.resolve('@grafana/plugin-e2e'))}/auth`;
 
 /**
+ * GRAFANA_URL is set only by the Cloud cron workflow (.github/workflows/cron.yml),
+ * which runs the suite against a shared Grafana Cloud dev instance.
+ */
+const isCloudRun = !!process.env.GRAFANA_URL;
+
+/**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
@@ -17,10 +23,22 @@ export default defineConfig<PluginOptions>({
   testDir: './tests/e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
+  /*
+   * Timeout ceilings are raised for Cloud runs. Each test gets a fresh browser
+   * context, so on the shared Cloud instance every test re-downloads the plugin
+   * bundle before it can assert on anything. These are polling ceilings, not
+   * sleeps, so fast runs are unaffected.
+   */
+  timeout: isCloudRun ? 90_000 : 30_000,
+  expect: {
+    timeout: isCloudRun ? 30_000 : 5_000,
+  },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
+  /* The shared Cloud instance is contended; parallel workers make it flake. */
+  workers: isCloudRun ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -30,6 +48,7 @@ export default defineConfig<PluginOptions>({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */
