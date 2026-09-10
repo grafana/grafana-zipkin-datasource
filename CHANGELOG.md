@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.4.8
+
+### Patch Changes
+
+- Dependency (backend/frontend) updates
+- Bump go v1.26.7
+
 ## 12.4.7
 
 - Bump go v1.26.7 and grafana-plugin-sdk-go v0.296.4 ([#90](https://github.com/grafana/grafana-zipkin-datasource/pull/90))
