@@ -163,7 +163,9 @@ test.describe('Query editor with fixture data', () => {
       await page.goto(exploreUrl(FRONTEND_TRACE_ID));
       // Wait for the trace frame to arrive before asserting on the rendered view.
       await waitForMainQueryResponse(page);
-      await expect(page.getByRole('heading', { name: /^frontend:/, level: 1 })).toBeVisible();
+      // Grafana's trace header title separator between service and operation
+      // name has varied across versions (colon vs space) - match either.
+      await expect(page.getByRole('heading', { name: /^frontend[: ]/, level: 1 })).toBeVisible();
     });
   });
 
