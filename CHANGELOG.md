@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.9
+
+### Patch Changes
+
+🐛 Fix security vulnerabilities (CVE-2026-84445)
+
 ## 12.4.8
 
 ### Patch Changes
