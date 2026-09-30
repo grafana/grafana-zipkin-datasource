@@ -5,13 +5,42 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch:
 
-permissions: {}
+# Reusable workflows can only narrow caller permissions, not escalate.
+# `id-token: write` is needed by the Vault OIDC step in playwright-cloud.yml.
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   playwright-cloud:
     uses: grafana/data-sources-ci-workflows/.github/workflows/playwright-cloud.yml@main
     secrets: inherit
+    permissions:
+      contents: read
+      id-token: write
     with:
+      run-stage: nightly
+      # Paths are relative to ci/repo/grafana/grafana-zipkin-datasource/ —
+      # get-vault-secrets prepends that prefix for `repo_secrets`.
       repo-secrets: |
-        DS_INSTANCE_NAME=ci/data/data-sources/grafana-zipkin-datasource/zipkin:name
-        DS_INSTANCE_URL=ci/data/data-sources/grafana-zipkin-datasource/zipkin:url
+        DS_INSTANCE_NAME=zipkin:name
+        DS_INSTANCE_URL=zipkin:url
+
+  notify-slack:
+    name: Notify Slack on failure
+    needs: playwright-cloud
+    if: failure()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Notify Slack on failure
+        uses: grafana/data-sources-ci-workflows/.github/actions/notify-cloud-e2e-failure@main
+        with:
+          repo: ${{ github.repository }}
+          run-stage: nightly
+          ref-name: ${{ github.ref_name }}
+          actor: ${{ github.actor }}
+          sha: ${{ github.sha }}
+          run-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
