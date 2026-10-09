@@ -1,6 +1,6 @@
 {
   "name": "zipkin",
-  "version": "12.4.9",
+  "version": "12.4.10",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
@@ -82,5 +82,8 @@
     "node": ">=24",
     "npm": ">=11.18.0"
   },
-  "packageManager": "npm@11.18.0"
+  "packageManager": "npm@11.18.0",
+  "overrides": {
+    "basic-ftp": "6.2.1"
+  }
 }
