@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.11
+
+### Patch Changes
+
+🐛 Fix security vulnerabilities
+
 ## 12.4.10
 
 ### Patch Changes
