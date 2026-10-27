@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.12
+
+### Patch Changes
+
+🐛 Bump backend dependency
+
 ## 12.4.11
 
 ### Patch Changes
