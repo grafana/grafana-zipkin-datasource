@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.13
+
+### Patch Changes
+
+Update backend dependencies
+
 ## 12.4.12
 
 ### Patch Changes
